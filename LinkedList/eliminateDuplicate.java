@@ -28,7 +28,7 @@ public class eliminateDuplicate {
         System.out.println();
     }
 
-    public static LinkedNode<Integer> check(LinkedNode<Integer> head){
+    public static LinkedNode<Integer> check1(LinkedNode<Integer> head){
         //if empty LL or single node
         if(head == null || head.next == null) return head;
 
@@ -40,16 +40,34 @@ public class eliminateDuplicate {
             }
             uniqueNode = uniqueNode.next;
         }
-        node.next = null;
+        node.next = null; //for stoping the LL
         return head;
+    }
+
+    public static LinkedNode<Integer> check2(LinkedNode<Integer> head){
+        //if empty or one node
+        if(head == null || head.next == null) return head;
+
+        LinkedNode<Integer> newNode = head, tail = head;
+        head = head.next;
+        while(head != null){
+            if(tail.data != head.data){
+                tail.next = head;
+                tail = tail.next;
+            }
+            head = head.next;
+        }
+        tail.next = null;
+        return newNode;
     }
 
     public static void main(String[] args) {
         System.out.println("Enter the elements of the LL: ");
         LinkedNode<Integer> head = takeInput();
         print(head);
-        head = check(head);
+        head = check2(head);
         print(head);
     }
-    
 }
+
+//Both functions are okay, We can use Check1 or Check2
